@@ -11,11 +11,11 @@ class AppRouter extends React.PureComponent {
   render() {
     return (
       <Router>
-        <div className="mh5">
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/login/">Login</Link>
-            <Link to="/signup/">Sign Up</Link>
+        <div className="mh5 mv3">
+          <nav className="flex justify-end">
+            <Link to="/" className="ml5 f3">Home</Link>
+            <Link to="/login/" className="ml5 f3">Login</Link>
+            <Link to="/signup/" className="ml5 f3">Sign Up</Link>
           </nav>
 
           <div>

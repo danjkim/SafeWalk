@@ -19,6 +19,7 @@ class Button extends React.PureComponent {
     return (
       <button onClick={this.props.onClick} className={classnames(this.props.className, "br-pill shadow-3 bn ttu pv3 ph4")}>
         {this.props.label}
+        {this.props.children}
       </button>
     );
   }
