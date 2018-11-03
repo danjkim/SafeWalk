@@ -7,12 +7,14 @@ class TextField extends React.PureComponent {
     label: PropTypes.string,
     value: PropTypes.string,
     className: PropTypes.string,
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
     label: "",
     value: "",
     className: "",
+    onChange: () => null,
   };
 
 
@@ -22,7 +24,8 @@ class TextField extends React.PureComponent {
       <label className="flex">
         {this.props.label}
         <input type="text" value={this.props.value}
-               className={classnames(this.props.className, "br2 bg-white bn")} />
+               className={classnames(this.props.className, "br2 bg-white bn")}
+               onChange={this.props.onChange} />
       </label>
     );
   }

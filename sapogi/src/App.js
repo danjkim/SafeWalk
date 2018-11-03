@@ -4,6 +4,8 @@ import logo from './logo.svg';
 import './App.css';
 
 import Landing from "./landing/Landing";
+import Login from "./login/Login";
+import Signup from "./signup/Signup";
 
 class AppRouter extends React.PureComponent {
   render() {
@@ -18,8 +20,8 @@ class AppRouter extends React.PureComponent {
 
           <div>
             <Route path="/" exact component={Landing} />
-            <Route path="/login/" />
-            <Route path="/signup/" />
+            <Route path="/login/" exact component={Login}/>
+            <Route path="/signup/" exact component={Signup} />
             <Route path="/safewalk/" />
           </div>
         </div>
