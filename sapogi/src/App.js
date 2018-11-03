@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import logo from './logo.svg';
-import './App.css';
+//import './App.css';
 
 import Landing from "./landing/Landing";
+import Safewalk from "./safewalk/Safewalk";
 
 class AppRouter extends React.PureComponent {
   render() {
@@ -20,7 +21,7 @@ class AppRouter extends React.PureComponent {
             <Route path="/" exact component={Landing} />
             <Route path="/login/" />
             <Route path="/signup/" />
-            <Route path="/safewalk/" />
+            <Route path="/safewalk/" component={Safewalk} />
           </div>
         </div>
       </Router>
