@@ -14,7 +14,7 @@ export default class LandingPage extends React.PureComponent {
           spots or can join existing walking parties to navigate through the streets
           of Berkeley at dangerous hours. Click the button below to get started!
         </p>
-        <Button label="Get Started" className="f2" />
+        <Button label="Get Started" className="f2 bg-dark-blue white" />
       </div>
     );
   }

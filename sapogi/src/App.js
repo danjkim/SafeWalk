@@ -9,17 +9,19 @@ class AppRouter extends React.PureComponent {
   render() {
     return (
       <Router>
-        <div>
+        <div className="mh5">
           <nav>
             <Link to="/">Home</Link>
             <Link to="/login/">Login</Link>
             <Link to="/signup/">Sign Up</Link>
           </nav>
 
-          <Route path="/" exact component={Landing} />
-          <Route path="/login/" />
-          <Route path="/signup/" />
-          <Route path="/safewalk/" />
+          <div>
+            <Route path="/" exact component={Landing} />
+            <Route path="/login/" />
+            <Route path="/signup/" />
+            <Route path="/safewalk/" />
+          </div>
         </div>
       </Router>
     );
