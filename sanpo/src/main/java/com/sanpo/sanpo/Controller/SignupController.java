@@ -17,8 +17,7 @@ public class SignupController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User signup(@RequestBody String userId) {
-        User user = repo.findById(userId).get();
+    public User signup(@RequestBody User user) {
         if (repo.findByEmail(user.getEmail()) != null) {
             return null;
         }

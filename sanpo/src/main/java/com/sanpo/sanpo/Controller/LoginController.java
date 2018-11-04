@@ -16,8 +16,7 @@ public class LoginController {
     UserRepository repo;
 
     @GetMapping
-    public User login(@RequestBody String userId) {
-        User user = repo.findById(userId).get();
+    public User login(@RequestBody User user) {
         if (user == null) {
             return null;
         }
