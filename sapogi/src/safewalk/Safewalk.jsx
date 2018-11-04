@@ -70,6 +70,10 @@ export default class Safewalk extends React.PureComponent {
     };
   }
 
+  async componendDidMount() {
+    // Load the locations
+  }
+
   handleLocationClick = async (index) => {
     this.setState({
       modalOpen: true,
@@ -107,8 +111,8 @@ export default class Safewalk extends React.PureComponent {
              locations={Safewalk.locations}
              onSelect={this.handleLocationClick}/>
         <Modal isOpen={this.state.modalOpen} style={modalStyle}>
-          <h2>{this.modalTitle}</h2>
           <div className="flex flex-column justify-center">
+            <h2>{this.modalTitle}</h2>
             <span className="flex w-100">
               <Spinner name="wave" fadeIn="none" className={this.spinnerClass} />
               <button onClick={this.handleCloseModal} className="ml-auto ph0">
