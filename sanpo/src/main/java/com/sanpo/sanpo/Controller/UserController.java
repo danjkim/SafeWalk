@@ -28,11 +28,7 @@ public class UserController {
 
     @GetMapping()
     public List<User> getAll() {
-        List<User> userLst = new ArrayList<>();
-        for (User u: repo.findAll()) {
-            userLst.add(u);
-        }
-        return userLst;
+        return (List<User>) repo.findAll();
     }
 
     @GetMapping("/{username}")

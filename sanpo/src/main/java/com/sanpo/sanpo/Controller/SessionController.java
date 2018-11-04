@@ -3,6 +3,7 @@ package com.sanpo.sanpo.Controller;
 import com.sanpo.sanpo.Model.Session;
 import com.sanpo.sanpo.Model.User;
 import com.sanpo.sanpo.Repository.SessionRepository;
+import com.sanpo.sanpo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +17,12 @@ public class SessionController {
     @Autowired
     SessionRepository repo;
 
+    @Autowired
+    UserRepository repo1;
+
     @GetMapping
     public List<Session> getAll () {
-        List<Session> result = new ArrayList<>();
-        for (Session s: repo.findAll()) {
-            result.add(s);
-        }
-        return result;
+        return (List<Session>) repo.findAll();
     }
 
     @GetMapping("/{sessionId}")
@@ -41,8 +41,19 @@ public class SessionController {
 
 
     @PutMapping("/{sessionId}")
-    public Session addUser(@PathVariable("sessionId") String sessionId, @RequestBody User user) {
+    public Session addUser(@PathVariable("sessionId") String sessionId, @RequestBody String userId) {
         Session s = repo.findById(sessionId).get();
+        User user = repo1.findById(userId).get();
+        Session old = repo.findById(user.getLastSessionId()).get();
+        String[] oldTime = old.getStartTime().split(":");
+        String[] currTime = s.getStartTime().split(":");
+        int oldTimeVal = 60*Integer.parseInt(oldTime[0]) + Integer.parseInt(oldTime[1]);
+        int currTimeVal = 60*Integer.parseInt(currTime[0]) + Integer.parseInt(currTime[1]);
+        // delete old session user list user
+        if (oldTimeVal >= currTimeVal) {
+            old.getUsers().remove(user);
+        }
+        user.setLastSessionId(sessionId);
         s.getUsers().add(user);
         return repo.save(s);
 

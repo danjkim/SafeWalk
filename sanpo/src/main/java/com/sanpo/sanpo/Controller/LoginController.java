@@ -17,6 +17,7 @@ public class LoginController {
     @Autowired
     UserRepository repo;
 
+
     @PostMapping
     public ResponseEntity<?> login(@RequestBody User user) {
         if (user == null || user.getEmail() == null || repo.findByEmail(user.getEmail()) == null || user.getPassword() == null) {
