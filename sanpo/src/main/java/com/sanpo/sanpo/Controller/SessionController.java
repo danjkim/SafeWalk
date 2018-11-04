@@ -31,13 +31,6 @@ public class SessionController {
         return s;
     }
 
-    @PostMapping
-    public Session addSession() {
-        Session s = new Session();
-        s.setId("Downtown");
-        s.setStartTime("8:00PM");
-        return repo.save(s);
-    }
 
 
     @PutMapping("/{sessionId}")
