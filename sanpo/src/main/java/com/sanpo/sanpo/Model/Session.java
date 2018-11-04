@@ -2,6 +2,7 @@ package com.sanpo.sanpo.Model;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
@@ -9,11 +10,14 @@ public class Session {
     @Id
     private String id;
     private String startTime;
-    private List<String> batchesId;
+    private String destinationName;
+    private List<User> users = new ArrayList<>();
 
     public String getId() {
         return id;
     }
+
+    public String getDestinationName() { return destinationName; }
 
     public void setId(String id) {
         this.id = id;
@@ -27,11 +31,8 @@ public class Session {
         this.startTime = startTime;
     }
 
-    public List<String> getBatchesId() {
-        return batchesId;
+    public List<User> getUsers() {
+        return this.users;
     }
 
-    public void setBatchesId(List<String> batchesId) {
-        this.batchesId = batchesId;
-    }
 }

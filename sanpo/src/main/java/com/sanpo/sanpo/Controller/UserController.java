@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,9 +25,14 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/{username}")
-    public User findOne(@PathVariable("username") String username) {
-//        return repo.findByUsername(username);
-        return null;
+
+    @GetMapping()
+    public List<User> getAll() {
+        return (List<User>) repo.findAll();
+    }
+
+    @GetMapping("/{email}")
+    public User getOne(@PathVariable("email") String email) {
+        return repo.findByEmail(email);
     }
 }
