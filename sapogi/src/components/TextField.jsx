@@ -21,10 +21,10 @@ class TextField extends React.PureComponent {
 
   render() {
     return (
-      <label className="flex">
+      <label className="flex flex-column white mt1">
         {this.props.label}
         <input type="text" value={this.props.value}
-               className={classnames(this.props.className, "br2 bg-white bn")}
+               className={classnames(this.props.className, "br2 bg-white bn mt2")}
                onChange={this.props.onChange} />
       </label>
     );
