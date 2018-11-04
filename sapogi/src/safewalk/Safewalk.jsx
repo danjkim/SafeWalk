@@ -53,12 +53,12 @@ const modalStyle = {
 };
 
 export default class Safewalk extends React.PureComponent {
-  static locations = [new Location("Downtown Berkeley", 0, "232,297,258,326"),
-                      new Location("RSF", 1, "489,381,518,414"),
-                      new Location("West Crescent", 2, "419,197,444,230"),
-                      new Location("Soda Hall", 3, "574,35,602,590"),
-                      new Location("Sather Gate", 4, "585,273,609,308"),
-                      new Location("Moffit Library", 5, "625,179,648,211")];
+  static locations = [new Location("Downtown Berkeley", "Downtown", "232,297,258,326"),
+                      new Location("RSF", "RSF", "489,381,518,414"),
+                      new Location("West Crescent", "West Crescent", "419,197,444,230"),
+                      new Location("Soda Hall", "Soda", "574,35,602,590"),
+                      new Location("Sather Gate", "Sather", "585,273,609,308"),
+                      new Location("Moffit Library", "Moffitt", "625,179,648,211")];
 
   constructor(props) {
     super(props);
@@ -69,7 +69,9 @@ export default class Safewalk extends React.PureComponent {
       loading: false,
       sessions: [],
       regions: [],
+      email: "27c66a7c-95bf-4440-84ae-b4980d23c36e",
       selectedRegion: null,
+      clickJoin: false,
     };
   }
 
@@ -86,14 +88,20 @@ export default class Safewalk extends React.PureComponent {
   };
 
   handleCloseModal = () => {
-    this.setState({modalOpen: false});
+    this.setState({
+      modalOpen: false,
+      clickJoin: false});
   };
 
   handleSessionJoin = async (sessionId) => {
     this.setState({loading: true});
-    await SessionService.addToSession(sessionId);
+    await SessionService.addToSession(sessionId, this.state.email);
     const newRegions = await RegionService.getAllRegions();
-    this.setState({loading: false, regions: newRegions});
+    this.setState({
+        loading: false,
+        regions: newRegions,
+        clickJoin: true,
+    });
     // PUT the request on the server
     // await BatchService.joinBatch(batchId);
     // this.setState({loading: false});
@@ -104,7 +112,7 @@ export default class Safewalk extends React.PureComponent {
   }
 
   get modalTitle() {
-    return this.state.selectedRegion ? this.state.selectedRegion.name : "";
+    return this.state.selectedRegion ? this.state.selectedRegion.id : "";
   }
 
   render() {
@@ -122,6 +130,10 @@ export default class Safewalk extends React.PureComponent {
               </button>
             </span>
             <h2>{this.modalTitle}</h2>
+
+            <div>{this.state.clickJoin ? <h3>You've joined a party! Please head on over to {this.modalTitle}</h3> : ""}</div>
+
+
             <div>
               {this.state.selectedRegion && this.state.selectedRegion.sessions.map(s => {
                 return (

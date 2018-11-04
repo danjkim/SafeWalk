@@ -11,18 +11,20 @@ class AppRouter extends React.PureComponent {
     return (
       <Router>
         <div className="mh5 mv3">
-          <nav className="flex justify-end">
+          <nav className="flex justify-end" style={{position:"relative", left:"45px"}}>
             <Link to="/" className="ml5 f3">Home</Link>
             <Link to="/login/" className="ml5 f3">Login</Link>
-            <Link to="/signup/" className="ml5 f3">Sign Up</Link>
+            {/*<Link to="/signup/" className="ml5 f3">Sign Up</Link>*/}
           </nav>
 
-          <div>
+          <div style={{float: "left", width: "70%"}}>
             <Route path="/" exact component={Landing} />
+          </div>
+          <div>
             <Route path="/safewalk/" component={Safewalk} />
-            <Route path="/login/" exact component={Login}/>
             <Route path="/signup/" exact component={Signup} />
           </div>
+          <Route path="/" exact component={Login}/>
         </div>
       </Router>
     );

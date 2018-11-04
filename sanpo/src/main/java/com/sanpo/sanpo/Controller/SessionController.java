@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/sessions")
 public class SessionController {
@@ -41,18 +43,23 @@ public class SessionController {
 
 
     @PutMapping("/{sessionId}")
-    public Session addUser(@PathVariable("sessionId") String sessionId, @RequestBody String userId) {
+    public Session addUser(@PathVariable("sessionId") String sessionId, @RequestBody Map<String, String> map) {
+        String userId = map.get("userId");
         Session s = repo.findById(sessionId).get();
         User user = repo1.findById(userId).get();
-        Session old = repo.findById(user.getLastSessionId()).get();
-        String[] oldTime = old.getStartTime().split(":");
-        String[] currTime = s.getStartTime().split(":");
-        int oldTimeVal = 60*Integer.parseInt(oldTime[0]) + Integer.parseInt(oldTime[1]);
-        int currTimeVal = 60*Integer.parseInt(currTime[0]) + Integer.parseInt(currTime[1]);
-        // delete old session user list user
-        if (oldTimeVal >= currTimeVal) {
-            old.getUsers().remove(user);
+        System.out.println(user.getEmail());
+        if (user.getLastSessionId() != null) {
+            Session old = repo.findById(user.getLastSessionId()).get();
+            String[] oldTime = old.getStartTime().split(":");
+            String[] currTime = s.getStartTime().split(":");
+            int oldTimeVal = 60*Integer.parseInt(oldTime[0]) + Integer.parseInt(oldTime[1]);
+            int currTimeVal = 60*Integer.parseInt(currTime[0]) + Integer.parseInt(currTime[1]);
+            // delete old session user list user
+            if (oldTimeVal >= currTimeVal) {
+                old.getUsers().remove(user);
+            }
         }
+
         user.setLastSessionId(sessionId);
         s.getUsers().add(user);
         return repo.save(s);

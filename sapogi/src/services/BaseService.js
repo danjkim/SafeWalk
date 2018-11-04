@@ -1,5 +1,5 @@
 
-const API_ENDPOINT = "http://localhost";
+const API_ENDPOINT = "http://localhost:8081/api";
 function apiUri(resource) {
   return `${API_ENDPOINT}/${resource}`;
 }

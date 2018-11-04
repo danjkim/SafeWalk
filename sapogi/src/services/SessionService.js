@@ -13,14 +13,16 @@ export default class SessionService extends BaseService {
     return session.json();
   }
 
-  static async addToSession(sessionId) {
-    const user = Cookies.get("userId");
-    await this.fetch(`sessions/${sessionId}`, {
+  static async addToSession(sessionId, userId) {
+    // const user = Cookies.get("userId");
+    var data = {};
+    data["userId"] = userId;
+    await this.fetch(`sessions/` + sessionId, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(data),
     });
   }
 }

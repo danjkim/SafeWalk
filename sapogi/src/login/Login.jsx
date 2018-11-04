@@ -29,7 +29,7 @@ export default class SignupPage extends React.PureComponent {
 
   render() {
     return (
-      <div className="bg-dark-blue vh-100-m w-30 min-vh-100 ph3">
+      <div className="bg-dark-blue vh-100-m w-30 min-vh-100 ph3" style={{zIndex:"-1", paddingTop:"100px", float: "right", position: "absolute", right: "0", top: "0"}}>
           <h1 className="flex">
               Login
           </h1>

@@ -22,4 +22,7 @@ public class Region {
         this.sessions = sessions;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }

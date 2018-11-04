@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/regions")
 public class RegionController {
@@ -24,7 +25,20 @@ public class RegionController {
     public List<Region> getAll () {
         List<Region> result = new ArrayList<>();
         for (Region r: repo.findAll()) {
-            result.add(r);
+//            result.add(r);
+            Region dup = new Region();
+            dup.setId(r.getId());
+            List<Session> dupSessions = new ArrayList<>();
+            int i = 0;
+            for (Session s: r.getSessions()) {
+                if (i > 5) {
+                    break;
+                }
+                dupSessions.add(repo1.findById(s.getId()).get());
+                i++;
+            }
+            dup.setSessions(dupSessions);
+            result.add(dup);
         }
         return result;
     }
@@ -32,7 +46,19 @@ public class RegionController {
     @GetMapping("/{regionId}")
     public Region getRegion(@PathVariable("regionId") String regionId) {
         Region r = repo.findById(regionId).get();
-        return r;
+        Region dup = new Region();
+        dup.setId(r.getId());
+        List<Session> dupSessions = new ArrayList<>();
+        int i = 0;
+        for (Session s: r.getSessions()) {
+            if (i > 5) {
+                break;
+            }
+            dupSessions.add(s);
+            i++;
+        }
+        dup.setSessions(dupSessions);
+        return dup;
     }
 
     @PostMapping
