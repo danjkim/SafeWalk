@@ -10,11 +10,14 @@ public class Session {
     @Id
     private String id;
     private String startTime;
+    private String destinationId;
     private List<User> users = new ArrayList<>();
 
     public String getId() {
         return id;
     }
+
+    public String getDestinationId() { return destinationId; }
 
     public void setId(String id) {
         this.id = id;
