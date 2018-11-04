@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import logo from './logo.svg';
-
 import Landing from "./landing/Landing";
+import Safewalk from "./safewalk/Safewalk";
 import Login from "./login/Login";
 import Signup from "./signup/Signup";
 
@@ -19,9 +19,9 @@ class AppRouter extends React.PureComponent {
 
           <div>
             <Route path="/" exact component={Landing} />
+            <Route path="/safewalk/" component={Safewalk} />
             <Route path="/login/" exact component={Login}/>
             <Route path="/signup/" exact component={Signup} />
-            <Route path="/safewalk/" />
           </div>
         </div>
       </Router>
