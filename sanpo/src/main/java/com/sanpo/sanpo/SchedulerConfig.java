@@ -52,19 +52,19 @@ public class SchedulerConfig implements SchedulingConfigurer {
         scheduledTaskRegistrar.setTaskScheduler(threadPoolTaskScheduler);
     }
 
-//    @Scheduled(cron = "0 0 0 * * *")
-    @Scheduled(fixedRate = 4000)
+    @Scheduled(cron = "0 0 0 * * *")
     public void scheduleTaskWithFixedRate() {
 
         List<Region> regions = (List<Region>) repo.findAll();
         HashSet<String> set = new HashSet<>();
+        System.out.println("A");
         for (Region region: regions) {
             set.add(region.getId());
         }
         for (Region region: regions) {
             int hour = 0;
             int minute = 0;
-
+            System.out.println("B");
             List<Session> newSessions = new ArrayList<>();
             for (int i = 1; i < 48; i++) {
                 StringBuilder sb = new StringBuilder();
@@ -85,7 +85,8 @@ public class SchedulerConfig implements SchedulingConfigurer {
                     hour++;
                 }
                 for (String id: set) {
-                    if (!set.contains(region.getId())) {
+                    if (!id.equals(region.getId())) {
+                        System.out.println("C");
                         Session session = new Session();
                         session.setDestinationName(id);
                         session.setId(UUID.randomUUID().toString());
