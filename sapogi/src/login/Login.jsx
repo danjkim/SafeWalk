@@ -4,6 +4,7 @@ import classnames from "classnames";
 
 import Button from "../components/Button";
 import TextField from "../components/TextField";
+import PasswordField from "../components/PasswordField";
 
 export default class SignupPage extends React.PureComponent {
   constructor() {
@@ -28,7 +29,7 @@ export default class SignupPage extends React.PureComponent {
 
   render() {
     return (
-      <div className="Signup-section">
+      <div className="bg-dark-blue vh-100-m w-30 min-vh-100 ph3">
           <h1 className="flex">
               Login
           </h1>
@@ -41,11 +42,11 @@ export default class SignupPage extends React.PureComponent {
                          value={this.state.email}/>
           </div>
           <div>
-              <TextField label="Password" 
+              <PasswordField label="Password" 
                          onChange= {this.updatePassword.bind(this)}
                          value={this.state.password}/>
           </div>
-          <Button label="LOGIN"/>
+          <Button label="LOGIN" className="grow mt3"/>
       </div>
     );
   }
