@@ -31,7 +31,7 @@ public class UserController {
         return (List<User>) repo.findAll();
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/{email}")
     public User getOne(@PathVariable("email") String email) {
         return repo.findByEmail(email);
     }

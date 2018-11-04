@@ -20,7 +20,6 @@ public class SignupController {
     @ResponseStatus(HttpStatus.CREATED)
 
     public ResponseEntity<?> signup(@RequestBody User user) {
-
         if (repo.findByEmail(user.getEmail()) != null) {
             return new ResponseEntity(new CustomError("this email already exists."), HttpStatus.BAD_REQUEST);
         }

@@ -19,6 +19,10 @@ public class Session {
 
     public String getDestinationName() { return destinationName; }
 
+    public void setDestinationName(String destinationName) {
+        this.destinationName = destinationName;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -33,6 +37,10 @@ public class Session {
 
     public List<User> getUsers() {
         return this.users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
 }
