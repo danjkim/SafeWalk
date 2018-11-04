@@ -7,8 +7,6 @@ public class User {
     @Id
     private String id;
 
-    //username must be unique
-    private String username;
     // ignore the security issues for now
     private String password;
     private String name;
@@ -16,14 +14,6 @@ public class User {
     private float rating;
     private int totalTrips;
     private String lastSessionId;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;
