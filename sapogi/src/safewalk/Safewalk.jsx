@@ -8,11 +8,13 @@ import Spinner from "react-spinkit";
 
 import Location from "./Location";
 import MapImage from "../map.png";
+import RegionService from "../services/RegionService";
+import SessionService from "../services/SessionService";
 
 
-class Batch extends React.PureComponent {
+class Session extends React.PureComponent {
   static propTypes = {
-    batchId: PropTypes.any.isRequired,
+    sessionId: PropTypes.any.isRequired,
     dest: PropTypes.string.isRequired,
     numUsers: PropTypes.number.isRequired,
     totalCapacity: PropTypes.number.isRequired,
@@ -24,7 +26,7 @@ class Batch extends React.PureComponent {
   };
 
   handleClick = () => {
-    this.props.onJoin(this.props.batchId);
+    this.props.onJoin(this.props.sessionId);
   };
 
   render() {
@@ -65,32 +67,33 @@ export default class Safewalk extends React.PureComponent {
       dest: null,
       modalOpen: false,
       loading: false,
-      batches: [],
-      selectedLocation: null,
+      sessions: [],
+      regions: [],
+      selectedRegion: null,
     };
   }
 
-  async componendDidMount() {
-    // Load the locations
+  async componentDidMount() {
+    const rawRegions = await RegionService.getAllRegions();
+    this.setState({regions: rawRegions});
   }
 
-  handleLocationClick = async (index) => {
+  handleRegionClick = (id) => {
     this.setState({
       modalOpen: true,
-      loading: true,
-      selectedLocation: Safewalk.locations[index],
+      selectedRegion: this.state.regions.find(r => r.id === id),
     });
-    // Load the batches for this location
-    // let batches = await BatchService.getBatch(locationId)
-    // this.setState({batches: batches, loading: false});
   };
 
   handleCloseModal = () => {
     this.setState({modalOpen: false});
   };
 
-  handleBatchJoin = async (batchId) => {
+  handleSessionJoin = async (sessionId) => {
     this.setState({loading: true});
+    await SessionService.addToSession(sessionId);
+    const newRegions = await RegionService.getAllRegions();
+    this.setState({loading: false, regions: newRegions});
     // PUT the request on the server
     // await BatchService.joinBatch(batchId);
     // this.setState({loading: false});
@@ -101,7 +104,7 @@ export default class Safewalk extends React.PureComponent {
   }
 
   get modalTitle() {
-    return this.state.selectedLocation ? this.state.selectedLocation.name : "";
+    return this.state.selectedRegion ? this.state.selectedRegion.name : "";
   }
 
   render() {
@@ -109,22 +112,26 @@ export default class Safewalk extends React.PureComponent {
       <div>
         <Map mapImage={MapImage}
              locations={Safewalk.locations}
-             onSelect={this.handleLocationClick}/>
+             onSelect={this.handleRegionClick}/>
         <Modal isOpen={this.state.modalOpen} style={modalStyle}>
           <div className="flex flex-column justify-center">
-            <h2>{this.modalTitle}</h2>
             <span className="flex w-100">
               <Spinner name="wave" fadeIn="none" className={this.spinnerClass} />
               <button onClick={this.handleCloseModal} className="ml-auto ph0">
                 X
               </button>
             </span>
+            <h2>{this.modalTitle}</h2>
             <div>
-              <Batch batchId="1" 
-                     dest="Durant/Telegraph"
-                     numUsers={3}
-                     totalCapacity={5}
-                     onJoin={this.handleBatchJoin} /> 
+              {this.state.selectedRegion && this.state.selectedRegion.sessions.map(s => {
+                return (
+                  <Session sessionId={s.id}
+                           dest={s.destinationName}
+                           numUsers={s.users.length}
+                           totalCapacity={8}
+                           onJoin={this.handleSessionJoin} />
+                );
+              })}
             </div>
           </div>
         </Modal>

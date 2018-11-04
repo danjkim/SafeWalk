@@ -12,7 +12,8 @@
     "react-scripts": "2.1.1",
     "react-spinkit": "^3.0.0",
     "react-spinner": "^0.2.7",
-    "tachyons": "^4.11.1"
+    "tachyons": "^4.11.1",
+    "universal-cookie": "^3.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
